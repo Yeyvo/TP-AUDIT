@@ -6,8 +6,7 @@ RUN apt-get update && \
     apt-get install -y nginx
 
 
-RUN ln -s /etc/nginx/sites-available/site1-public.conf /etc/nginx/sites-enabled/ && \
-    ln -s /etc/nginx/sites-available/site2-restricted.conf /etc/nginx/sites-enabled/
+RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/ 
 
 
 # Expose ports 80 and 443 for the container
