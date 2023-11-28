@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/site1-public:/var/www/html/site1-public
+      - ./nginx/site2-restricted:/var/www/html/site2-restricted
+      - ./nginx/site1-public.conf:/etc/nginx/sites-available/site1-public.conf
+      - ./nginx/site2-restricted.conf:/etc/nginx/sites-available/site2-restricted.conf
+      - ./nginx/site1_public_certificate.crt:/etc/ssl/certs/site1_public_certificate.crt
+      - ./nginx/site1_public_private.key:/etc/ssl/private/site1_public_private.key
+      - ./nginx/site1_public_certificate.crt:/etc/ssl/certs/site2_restricted_certificate.crt
+      - ./nginx/site1_public_private.key:/etc/ssl/private/site2_restricted_private.key
