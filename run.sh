@@ -5,8 +5,8 @@
 sudo su
 
 cp -r ../TP-AUDIT/ ~/website/
-chmod +x ~/website/kali/kali-provisioning.sh
+chmod +x ~/website/pop-test-vm/kali/kali-provisioning.sh
 
-cd ~/website/kali/
+cd ~/website/pop-test-vm/kali/
 ./kali-provisioning.sh
 
