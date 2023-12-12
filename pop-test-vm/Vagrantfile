@@ -1,0 +1,35 @@
+# Define the kali 20.04 VM
+Vagrant.configure("2") do |config|
+
+  # config.vm.provider "vmware_desktop" do |v|
+    
+  # end
+  
+  
+ 
+
+  config.vm.define "kali" do |kali|
+    kali.vm.box = "kalilinux/rolling"
+    kali.vm.box_version = "2022.2.0"
+    # kali.vm.box_version = "2022.4.0"
+    # kali.vm.network "private_network", ip: "192.168.33.11"
+    kali.vm.provision "file", source: "../lab", destination: "/tmp"
+    kali.vm.provision "shell", path: "./kali/kali-provisioning.sh", privileged: true
+    # kali.vm.network "forwarded_port", guest: 4444, host: 4444
+    # config.vm.provision "shell", inline: <<-SHELL
+    #   setxkbmap fr
+    # SHELL
+  end
+
+  
+  config.vm.provider :vmware_workstation do |v|
+    v.vmx["memsize"] = "2048"
+    v.gui = false
+  end
+  
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+#   config.vm.provision "shell", inline: <<-SHELL
+#   apt-get install -y avahi-daemon libnss-mdns
+#   SHELL
+end
