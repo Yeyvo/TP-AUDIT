@@ -15,11 +15,11 @@ sudo systemctl enable docker
 
 
 # Copy scripts and files from the host to the guest
-cp -r /tmp/website/ ~/website/
+#cp -r /tmp/website/ ~/website/
 
-cd ~/website/nginx
+#cd ~/website/nginx
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout site_private.key -out site_certificate.crt -subj "/C=FR/ST=ISERE/L=GRENOBLE/O=HAKERMANS/OU=THeHakerMansUnit/CN=localhost"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ~/website/nginx/site_private.key -out ~/website/nginx/site_certificate.crt -subj "/C=FR/ST=ISERE/L=GRENOBLE/O=HAKERMANS/OU=THeHakerMansUnit/CN=localhost"
 
 cd ..
 
