@@ -8,10 +8,18 @@ RUN apt-get update && \
 # Install openssl
 RUN apt-get install openssl -y
 
-RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/ 
+# RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/nginx.conf 
+# RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/ 
 
 # Create the htpasswd file for basic authentication
-RUN echo "admin:$(openssl passwd -apr1 'admin')" > /etc/nginx/.htpasswd
+RUN echo "laojdojal:$(openssl passwd -apr1 'admin')" > /etc/nginx/.htpasswd
+
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
+RUN grep -r default_server /etc/nginx
 
 # Expose ports 80 and 443 for the container
 EXPOSE 80 443

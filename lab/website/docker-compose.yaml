@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   web:
@@ -9,6 +9,8 @@ services:
     volumes:
       - ./nginx/site1-public:/var/www/html/site1-public
       - ./nginx/site2-restricted:/var/www/html/site2-restricted
-      - ./nginx/site.conf:/etc/nginx/sites-available/site.conf
+      - ./nginx/site.conf:/etc/nginx/nginx.conf
+      # - ./nginx/site.conf:/etc/nginx/sites-available/site.conf
       - ./nginx/site_certificate.crt:/etc/ssl/certs/site_certificate.crt
       - ./nginx/site_private.key:/etc/ssl/private/site_private.key
+      - ./nginx/custom_index/index.html:/var/www/html/index.html
