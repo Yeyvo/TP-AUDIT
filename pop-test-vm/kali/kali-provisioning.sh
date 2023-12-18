@@ -96,6 +96,13 @@ ip -4 -brief address show
 
 
 echo ""
+echo "####################### Hardening the setup #######################"
+echo ""
+
+cd tmp/hardening/
+./main-hardening.sh
+
+echo ""
 echo "####################### END PROVISIONING #######################"
 
 # echo ""
