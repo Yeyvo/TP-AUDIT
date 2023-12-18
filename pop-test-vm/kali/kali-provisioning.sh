@@ -8,6 +8,18 @@ echo "####################### UPDATING PACKAGE LISTS #######################"
 echo ""
 sudo apt-get update
 
+Upgrade all packages
+echo ""
+echo "####################### UPGRADE ALL PACKAGES (HARDENING) #######################"
+echo ""
+sudo apt-get upgrade -y
+
+# # Kernel update (restart at the end)
+# echo ""
+# echo "####################### KERNEL UPDATE (HARDENING) #######################"
+# echo ""
+# sudo apt-get dist-upgrade -y
+
 echo ""
 echo "####################### INSTALLING NETCAT AND NMAP #######################"
 echo ""
@@ -31,6 +43,20 @@ echo "####################### STARTING AND ENABLING DOCKER SERVICE #############
 echo ""
 sudo systemctl start docker
 sudo systemctl enable docker
+
+
+# echo ""
+# echo "####################### CLEANUP (HARDENING) #######################"
+# echo ""
+# sudo apt-get autoremove -y
+# sudo apt-get autoclean
+
+# echo ""
+# echo "####################### FULL (HARDENING) #######################"
+# echo ""
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install selinux-basics selinux-policy-default auditd -y
+# sudo selinux-activate
+
 
 
 # Copy scripts and files from the host to the guest
@@ -65,3 +91,8 @@ ip -4 -brief address show
 
 echo ""
 echo "####################### END PROVISIONING #######################"
+
+# echo ""
+# echo "####################### REBOOT (HARDENING) #######################"
+# echo ""
+# reboot
