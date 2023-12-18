@@ -54,3 +54,9 @@ iptables -A INPUT -j DROP
 
 # Save the rules to persist across reboots
 iptables-save > /etc/iptables/rules.v4
+
+echo "#########################################################"
+echo "##### Configuring fail2ban tool with log monitoring #####"
+echo "#########################################################"
+
+./fail2ban-conf.sh
