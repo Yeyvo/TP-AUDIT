@@ -4,10 +4,12 @@
 
 sudo su
 
+
 cp -r ../TP-AUDIT/lab/website ~/website/
 
 sudo chmod +x ./pop-test-vm/kali/kali-provisioning.sh
 
 cd ./pop-test-vm/kali/
 ./kali-provisioning.sh
+
 

@@ -59,6 +59,12 @@ sudo systemctl enable docker
 
 
 
+# # Copy scripts and files from the host to the guest
+# echo ""
+# echo "####################### COPYING WEBSITE FILES #######################"
+# echo ""
+# cp -r /tmp/hardening/ ~/hardening
+
 # Copy scripts and files from the host to the guest
 echo ""
 echo "####################### COPYING WEBSITE FILES #######################"
