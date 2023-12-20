@@ -27,5 +27,6 @@ iptables -A INPUT -j LOG --log-prefix "iptables: " --log-level 7
 iptables -A INPUT -j DROP
 
 # Save the rules to persist across reboots
+mkdir /etc/iptables/
 touch /etc/iptables/rules.v4
 iptables-save > /etc/iptables/rules.v4

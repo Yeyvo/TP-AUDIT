@@ -1,16 +1,50 @@
 version: "3"
 
 services:
-  web:
-    build: .
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  modsecurity:
+    image: owasp/modsecurity-crs:nginx
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/site1-public:/var/www/html/site1-public
-      - ./nginx/site2-restricted:/var/www/html/site2-restricted
-      - ./nginx/site.conf:/etc/nginx/nginx.conf
-      # - ./nginx/site.conf:/etc/nginx/sites-available/site.conf
-      - ./nginx/site_certificate.crt:/etc/ssl/certs/site_certificate.crt
-      - ./nginx/site_private.key:/etc/ssl/private/site_private.key
-      - ./nginx/custom_index/index.html:/var/www/html/index.html
+      - ./modsecurity-config:/etc/modsecurity
+      - ./modsecurity-config/unicode.mapping:/etc/modsecurity.d/unicode.mapping
+      - ./modsecurity-config/modsecurity.conf:/etc/modsecurity.d/modsecurity.conf
+      - ./modsecurity-config/crs-setup.conf:/etc/nginx/modsecurity/crs-setup.conf
+      - ./modsecurity-config/rules:/etc/modsecurity.d/owasp-crs/rules
+      - ./nginx/site_certificate.crt:/etc/nginx/conf/server.crt # SSL certificate
+      - ./nginx/site_private.key:/etc/nginx/conf/server.key # SSL private key
+    environment:
+      - BACKEND=https://web:443
+      # - PROXY_SSL=on
+      #- NGINX_ALWAYS_TLS_REDIRECT=on
+      # - SERVER_NAME=localhost
+      - LOGLEVEL= "info"
+      - MODSEC_RULE_ENGINE=DetectionOnly
+      - BLOCKING_PARANOIA=1
+      - MODSEC_AUDIT_LOG=/var/log/modsecurity/audit.log
+      - MODSEC_AUDIT_LOG_FORMAT=JSON
+      - MODSEC_DATA_DIR=/tmp/modsecurity/data
+      - MODSEC_TMP_DIR=/tmp/modsecurity/tmp
+      - MODSEC_UPLOAD_DIR=/tmp/modsecurity/upload
+      # - MODSEC_DEBUG_LOG=/var/log/modsecurity/debug.log
+      - MODSEC_DEBUG_LOGLEVEL=9
+    depends_on:
+      - web
+    networks:
+      - webnet-internal
+  web:
+    build: .
+    networks:
+      - webnet-internal
+
+networks:
+  webnet-internal:

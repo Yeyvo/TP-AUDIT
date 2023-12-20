@@ -18,4 +18,4 @@ echo "#########################################################"
 echo "##### Configuring fail2ban tool with log monitoring #####"
 echo "#########################################################"
 
-./fail2ban-conf.sh
+./fail2ban-config.sh
